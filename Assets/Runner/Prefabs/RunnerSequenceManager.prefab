@@ -52,6 +52,7 @@ MonoBehaviour:
   - {fileID: 8617234690931488546, guid: 24e6103122814457297dc45d1ebd9d78, type: 3}
   - {fileID: 6720992300918251345, guid: f5969163fd24f4df09df4753595040b4, type: 3}
   - {fileID: 2034186197529953695, guid: d44d1b9822199404c9f82515a188ec6a, type: 3}
+  - {fileID: 1154844978881255510, guid: c9c8713ef95e0e14abe32ea753f264fe, type: 3}
   m_Levels:
   - {fileID: 11400000, guid: 33ced907333634bffa860034de1f4df9, type: 2}
   m_LevelManagers:

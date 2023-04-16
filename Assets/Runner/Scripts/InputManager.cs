@@ -7,16 +7,12 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 namespace HyperCasual.Runner
 {
-    /// <summary>
-    /// A simple Input Manager for a Runner game.
-    /// </summary>
     public class InputManager : MonoBehaviour
     {
-        /// <summary>
-        /// Returns the InputManager.
-        /// </summary>
         public static InputManager Instance => s_Instance;
         static InputManager s_Instance;
+
+        public enum SwipeDirection { Left, Right, Up, Down, Tap };
 
         [SerializeField]
         float m_InputSensitivity = 1.5f;
@@ -24,6 +20,8 @@ namespace HyperCasual.Runner
         bool m_HasInput;
         Vector3 m_InputPosition;
         Vector3 m_PreviousInputPosition;
+        Vector3 m_StartPosition;
+        float m_SwipeThreshold = 50f;
 
         void Awake()
         {
@@ -60,12 +58,16 @@ namespace HyperCasual.Runner
             {
                 if (!m_HasInput)
                 {
-                    m_PreviousInputPosition = m_InputPosition;
+                    m_StartPosition = m_PreviousInputPosition = m_InputPosition;
                 }
                 m_HasInput = true;
             }
             else
             {
+                if (m_HasInput)
+                {
+                    DetectSwipe();
+                }
                 m_HasInput = false;
             }
 #else
@@ -75,29 +77,55 @@ namespace HyperCasual.Runner
 
                 if (!m_HasInput)
                 {
-                    m_PreviousInputPosition = m_InputPosition;
+                    m_StartPosition = m_PreviousInputPosition = m_InputPosition;
                 }
                 
                 m_HasInput = true;
             }
             else
             {
+                if (m_HasInput)
+                {
+                    DetectSwipe();
+                }
                 m_HasInput = false;
             }
 #endif
 
-            if (m_HasInput)
+            m_PreviousInputPosition = m_InputPosition;
+        }
+
+        void DetectSwipe()
+        {
+            Vector3 delta = m_InputPosition - m_StartPosition;
+
+            if (Mathf.Abs(delta.x) > m_SwipeThreshold || Mathf.Abs(delta.y) > m_SwipeThreshold)
             {
-                float normalizedDeltaPosition = (m_InputPosition.x - m_PreviousInputPosition.x) / Screen.width * m_InputSensitivity;
-                PlayerController.Instance.SetDeltaPosition(normalizedDeltaPosition);
+                if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
+                {
+                    if (delta.x > 0)
+                        OnSwipe(SwipeDirection.Right);
+                    else
+                        OnSwipe(SwipeDirection.Left);
+                }
+                else
+                {
+                    if (delta.y > 0)
+                        OnSwipe(SwipeDirection.Up);
+                    else
+                        OnSwipe(SwipeDirection.Down);
+                }
             }
             else
             {
-                PlayerController.Instance.CancelMovement();
+                OnSwipe(SwipeDirection.Tap);
             }
+        }
 
-            m_PreviousInputPosition = m_InputPosition;
+        void OnSwipe(SwipeDirection direction)
+        {
+            Debug.Log($"Swipe {direction}");
+            PlayerController.Instance.OnSwipe(direction);
         }
     }
 }
-

@@ -334,5 +334,40 @@ namespace HyperCasual.Runner
         {
             return Mathf.Approximately(a.x, b.x) && Mathf.Approximately(a.y, b.y) && Mathf.Approximately(a.z, b.z);
         }
+
+        public void OnSwipe(InputManager.SwipeDirection direction)
+        {
+            switch (direction)
+            {
+                case InputManager.SwipeDirection.Left:
+                    // Perform left swipe action
+                    ObstacleGravityController.Instance.SetGravityDirection(ObstacleGravityController.GravityDirection.Left);
+                    // Trigger the LeftGravityShift animation
+                    m_Animator.SetTrigger("LeftGravityShift");
+                    break;
+                case InputManager.SwipeDirection.Right:
+                    // Perform right swipe action
+                    ObstacleGravityController.Instance.SetGravityDirection(ObstacleGravityController.GravityDirection.Right);
+                    // Trigger the RightGravityShift animation
+                    m_Animator.SetTrigger("RightGravityShift");
+                    break;
+                case InputManager.SwipeDirection.Up:
+                    // Perform up swipe action
+                    ObstacleGravityController.Instance.SetGravityDirection(ObstacleGravityController.GravityDirection.Up);
+                    // Trigger the UpGravityShift animation
+                    m_Animator.SetTrigger("UpGravityShift");
+                    break;
+                case InputManager.SwipeDirection.Down:
+                    // Perform down swipe action
+                    ObstacleGravityController.Instance.SetGravityDirection(ObstacleGravityController.GravityDirection.Down);
+                    // Trigger the DownGravityShift animation
+                    m_Animator.SetTrigger("DownGravityShift");
+                    break;
+                case InputManager.SwipeDirection.Tap:
+                    // Perform tap action
+                    m_Animator.SetTrigger("Jump");
+                    break;
+            }
+        }
     }
 }
