@@ -22,6 +22,13 @@ public class ObstacleGravityController : MonoBehaviour
     {
         currentGravityDirection = newDirection;
         ApplyGravityDirectionToObstacles();
+        ApplyGravityShiftToTerrain();
+    }
+
+    private void ApplyGravityShiftToTerrain()
+	{
+        FindObjectOfType<TerrainMaterialSwitcher>().SwitchColor(currentGravityDirection);
+
     }
 
     private void ApplyGravityDirectionToObstacles()
@@ -36,27 +43,28 @@ public class ObstacleGravityController : MonoBehaviour
 
     public Vector3 GetGravityVector()
     {
+        float g = 9.8f;
         Vector3 gravity = Physics.gravity;
 
         switch (currentGravityDirection)
         {
             case GravityDirection.Down:
-                gravity = new Vector3(0, -Mathf.Abs(gravity.y), 0);
+                gravity = new Vector3(0, -Mathf.Abs(g), 0);
                 break;
             case GravityDirection.Up:
-                gravity = new Vector3(0, Mathf.Abs(gravity.y), 0);
+                gravity = new Vector3(0, Mathf.Abs(g), 0);
                 break;
             case GravityDirection.Left:
-                gravity = new Vector3(-Mathf.Abs(gravity.x), 0, 0);
+                gravity = new Vector3(-Mathf.Abs(g), 0, 0);
                 break;
             case GravityDirection.Right:
-                gravity = new Vector3(Mathf.Abs(gravity.x), 0, 0);
+                gravity = new Vector3(Mathf.Abs(g), 0, 0);
                 break;
             case GravityDirection.Forward:
-                gravity = new Vector3(0, 0, Mathf.Abs(gravity.z));
+                gravity = new Vector3(0, 0, Mathf.Abs(g));
                 break;
             case GravityDirection.Backward:
-                gravity = new Vector3(0, 0, -Mathf.Abs(gravity.z));
+                gravity = new Vector3(0, 0, -Mathf.Abs(g));
                 break;
         }
 

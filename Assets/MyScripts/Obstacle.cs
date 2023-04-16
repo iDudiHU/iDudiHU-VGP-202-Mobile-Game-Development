@@ -25,7 +25,6 @@ public class Obstacle : Spawnable
         {
             return;
         }
-
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
         Physics.gravity = gravity;
