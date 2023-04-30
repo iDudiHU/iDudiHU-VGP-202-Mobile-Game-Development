@@ -278,6 +278,7 @@ namespace HyperCasual.Runner
                 Thickness = levelDefinition.LevelThickness
             };
             TerrainGenerator.CreateTerrain(terrainDimensions, levelDefinition.TerrainMaterial, ref terrainGameObject);
+            terrainGameObject.AddComponent<TerrainMaterialSwitcher>();
         }
 
         public void Win()

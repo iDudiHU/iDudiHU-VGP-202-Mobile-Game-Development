@@ -18,7 +18,14 @@ public class ObstacleGravityController : MonoBehaviour
         Instance = this;
     }
 
-    public void SetGravityDirection(GravityDirection newDirection)
+	private void Start()
+	{
+        GameObject terrain = GameObject.Find("Terrain");
+        terrain.AddComponent<TerrainMaterialSwitcher>();
+        terrain.AddComponent<BoxCollider>();
+	}
+
+	public void SetGravityDirection(GravityDirection newDirection)
     {
         currentGravityDirection = newDirection;
         ApplyGravityDirectionToObstacles();
@@ -27,8 +34,7 @@ public class ObstacleGravityController : MonoBehaviour
 
     private void ApplyGravityShiftToTerrain()
 	{
-        FindObjectOfType<TerrainMaterialSwitcher>().SwitchColor(currentGravityDirection);
-
+		FindObjectOfType<TerrainMaterialSwitcher>()?.SwitchColor(currentGravityDirection);
     }
 
     private void ApplyGravityDirectionToObstacles()

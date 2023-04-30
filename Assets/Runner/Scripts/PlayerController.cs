@@ -43,6 +43,14 @@ namespace HyperCasual.Runner
         [SerializeField]
         bool m_AutoMoveForward = true;
 
+        [SerializeField]
+        float m_JumpHeight = 2.0f;
+
+        [SerializeField]
+        float m_JumpDuration = 0.5f;
+
+        bool m_IsJumping;
+
         Vector3 m_LastPosition;
         float m_StartHeight;
 
@@ -365,9 +373,45 @@ namespace HyperCasual.Runner
                     break;
                 case InputManager.SwipeDirection.Tap:
                     // Perform tap action
-                    m_Animator.SetTrigger("Jump");
+                    if (!m_IsJumping)
+                    {
+                        m_Animator.SetTrigger("JumpTrigger");
+                        StartCoroutine(Jump());
+                    }
                     break;
             }
+        }
+
+        IEnumerator Jump()
+        {
+            m_IsJumping = true;
+            float startY = m_Transform.position.y;
+            float targetY = startY + m_JumpHeight;
+            float elapsedTime = 0;
+            float fallingAccelerationFactor = 1.8f;
+
+            while (elapsedTime < m_JumpDuration / 3)
+            {
+                elapsedTime += Time.deltaTime;
+                float t = elapsedTime / (m_JumpDuration / 3);
+                float currentY = Mathf.SmoothStep(startY, targetY, t);
+                m_Transform.position = new Vector3(m_Transform.position.x, currentY, m_Transform.position.z);
+                yield return null;
+            }
+
+            elapsedTime = 0;
+
+            while (elapsedTime < m_JumpDuration * 2 / 3)
+            {
+                elapsedTime += Time.deltaTime;
+                float t = elapsedTime / (m_JumpDuration * 2 / 3);
+                float acceleration = Mathf.Pow(t, fallingAccelerationFactor);
+                float currentY = Mathf.SmoothStep(targetY, startY, acceleration);
+                m_Transform.position = new Vector3(m_Transform.position.x, currentY, m_Transform.position.z);
+                yield return null;
+            }
+
+            m_IsJumping = false;
         }
     }
 }

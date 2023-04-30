@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5111348789280336505}
   - component: {fileID: 3253739429279955935}
+  - component: {fileID: 1628212569}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -45,3 +46,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InputSensitivity: 1.5
+--- !u!114 &1628212569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9183922748988270725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e144d1643d6a57b459202496434d90e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
+  tiltSensitivity: 1

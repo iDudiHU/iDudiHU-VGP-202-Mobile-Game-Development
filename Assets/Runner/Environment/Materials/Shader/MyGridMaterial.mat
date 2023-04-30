@@ -68,11 +68,11 @@ Material:
     - Vector1_CA7D5F3: 30
     - Vector1_D5FBE925: 0.3
     - Vector1_F2A922B4: 1.73
-    - Vector1_F5FD9210: 7.217704
+    - Vector1_F5FD9210: 7.4040484
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
     - Color_2B671050: {r: 0, g: 0, b: 0, a: 0}
     - Color_30A0CA2F: {r: 0, g: 0.69803923, b: 0.14509805, a: 1}
-    - _GridColor: {r: 0.69803923, g: 0, b: 0.008068309, a: 1}
+    - _GridColor: {r: 0, g: 1, b: 0.15294118, a: 1}
   m_BuildTextureStacks: []
