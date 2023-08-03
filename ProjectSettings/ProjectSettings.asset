@@ -826,11 +826,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 1
-  cloudProjectId: 
+  cloudProjectId: 260c79bb-e64f-4ebf-8441-36d7d798242b
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Hypercasual
-  organizationId: 
+  projectName: Gravity Run
+  organizationId: matyasdudas97
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
